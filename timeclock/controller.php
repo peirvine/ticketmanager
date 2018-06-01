@@ -3,6 +3,7 @@
 namespace Concrete\Package\Timeclock;
 use Package;
 use SinglePage;
+use BlockType;
 //use PageTheme;
 
 defined('C5_EXECUTE') or die(_("Access Denied."));
@@ -23,7 +24,7 @@ class Controller extends Package
 
 	public function getPackageName()
 	{
-		return t("Clockmanager");
+		return t("Time Clock");
 	}
 	
 	public function install()
@@ -42,14 +43,14 @@ class Controller extends Package
         // Add blocks that are necessary for the users to use the package
         
         // User clock interface
-        BlockType::installBlockTypeFromPackage('clock', $pkg);  
+        BlockType::installBlockTypeFromPackage('clock', $pkg);
         
         // User ticket interface
         BlockType::installBlockTypeFromPackage('tickets', $pkg);  
 	}
     
-	public function update(){
-		
-	}
+	function upgrade() {
+        parent::upgrade();
+   	}
 }
 ?>
