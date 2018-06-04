@@ -19,7 +19,7 @@ while ($row = $r->fetchRow()) {
 		<td>". $row['uID'] ."</td>
 		<td>". $row['ak_full_name'] ."</td>
 		<td>
-			<a href='/dashboard/editusers/edit/". $row['uID'] ."' class='btn btn-default'>Edit</a>
+			<a href='/dashboard/edit_users/edit/". $row['uID'] ."' class='btn btn-default'>Edit</a>
 		</td>
 	</tr>";
 

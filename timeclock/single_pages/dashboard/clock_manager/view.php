@@ -1,11 +1,8 @@
-<?php
-if ($show == 'list'){
 
-?>
 <div class="ccm-dashboard-header-buttons">
 	<!--<a href="/dashboard/clockmanager/add" class="btn btn-primary">Add a Clock Entry</a>-->
-	<a href="/dashboard/clockmanager/download2/0" class="btn btn-info">Download Data (XLS)</a>&nbsp;
-	<a href="/dashboard/clockmanager/backup/0" class="btn btn-danger" onClick="return confirm('Are you sure you wish to DROP the database? Have you downloaded a copy of the databaes? You will not be able to access it again. This can not be undone.');">Backup Database and Start New Year</a>&nbsp;
+	<a href="/dashboard/clock_manager/download2/0" class="btn btn-info">Download Data (XLS)</a>&nbsp;
+	<a href="/dashboard/clock_manager/backup/0" class="btn btn-danger" onClick="return confirm('Are you sure you wish to DROP the database? Have you downloaded a copy of the databaes? You will not be able to access it again. This can not be undone.');">Backup Database and Start New Year</a>&nbsp;
 </div>
 
 <table class="table table-striped">
@@ -40,7 +37,7 @@ if ($show == 'list'){
 			if ($in == "in"){
 				echo "<td>Clocked In</td>
 				<td>
-					<a href='/dashboard/clockmanager/clockout/". $hours1['uID'] ."' class='btn btn-warning'>Clock Out</a>
+					<a href='/dashboard/clock_manager/clockout/". $hours1['uID'] ."' class='btn btn-warning'>Clock Out</a>
 				</td>";
 			}else{
 				echo "<td>Clocked Out</td>";
@@ -55,7 +52,7 @@ if ($show == 'list'){
 	</tbody>
 </table>
 
-<h3>Total hours spent on GOFIRST by Officers: <?php $total1 = $total->fetchRow(); echo $total1['total'] ?></h3><br />
+<!-- <h3>Total hours logged by users: <?php // $total1 = $total->fetchRow(); echo $total1['total'] ?></h3><br /> -->
 
 
 <table class="table table-striped">
@@ -88,8 +85,8 @@ while ($row = $r->fetchRow()) {
 		}
 		echo "<td>". $row['description'] ."</td>
 		<!--<td>
-			<a href='/dashboard/clockmanager/edit/". $row['hoursID'] ."' class='btn btn-default'>Edit</a>
-			<a href='/dashboard/clockmanager/?delete=". $row['hoursID'] ."' class='btn btn-danger' onClick='return confirm(\"Are you sure you wish to delete this competition? This can not be undone.\");'>Delete</a>
+			<a href='/dashboard/clock_manager/edit/". $row['hoursID'] ."' class='btn btn-default'>Edit</a>
+			<a href='/dashboard/clock_manager/?delete=". $row['hoursID'] ."' class='btn btn-danger' onClick='return confirm(\"Are you sure you wish to delete this competition? This can not be undone.\");'>Delete</a>
 		</td>-->
 	</tr>";
 
@@ -105,39 +102,3 @@ while ($row = $r->fetchRow()) {
 				'/dashboard/jrc_crud/savecategoryorder/',
 				{'categoryorder':jQuery('#categorylist').sortable('toArray').join(',').replace(/category/g,'')}
 			);*/
-} elseif ($show == 'form'){
-
-
-
-
-?>
-
-
-<form action="" method="post" enctype="multipart/form-data">
-
-<div class="form-group">
-	<?php echo $form->label('clockin', 'Clock In Time:') ?>
-	<?php echo Loader::helper('form/date_time')->datetime('clockin', $data['clockin']); ?>
-</div>
-<div class="form-group">
-	<?php echo $form->label('clockout', 'Clock Out Time:') ?>
-	<?php echo Loader::helper('form/date_time')->datetime('clockout', $data['clockout']); ?>
-</div>
-<div class="form-group">
-	<?php echo $form->label('description', 'Description of Work Done') ?>
-	<?php echo $form->textarea('description',$data['description']) ?>
-</div>
-
-
-<input type="hidden" name="id" value="<?php echo $editID ?>" />
-<input type="submit" class="btn btn-primary" value="Save Changes" name="edit" />   <a class="btn btn-danger" href="/dashboard/clockmanager/">Cancel</a>
-</form>
-
-
-
-
-
-<?php
-
-
-}

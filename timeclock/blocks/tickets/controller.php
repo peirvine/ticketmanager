@@ -1,5 +1,5 @@
 <?php 
-namespace Application\Block\Tickets;
+namespace Concrete\Package\Timeclock\Block\Tickets;
 use Concrete\Core\Block\BlockController;
 use Loader;
 use \Imagick;
@@ -19,7 +19,7 @@ class Controller extends BlockController
 
     public function getBlockTypeName()
     {
-        return t("Ticket form and viewer");
+        return t("Ticket User Interface");
     }
 
     public function add()
@@ -41,10 +41,14 @@ class Controller extends BlockController
 		
 		//Submitting Tickets
 		if (isset($_POST['tickets'])){
-			$log = "INSERT INTO a_tickets (`uID`, `hoursdifference`, `description`, `datesubmitted`) VALUES (". $u->getUserID() .", ". mysql_escape_string($_POST['hoursdifference']) .",'". mysql_escape_string($_POST['description1']) ."', NOW())";
+            $search = array("\\",  "\x00", "\n",  "\r",  "'",  '"', "\x1a");
+            $replace = array("\\\\","\\0","\\n", "\\r", "\'", '\"', "\\Z");
+            
+			$log = "INSERT INTO a_tickets (`uID`, `hoursdifference`, `description`, `datesubmitted`,`handled`,`accepted`) VALUES (". $u->getUserID() .", ". str_replace($search, $replace, $_POST['hoursdifference']) .",'". str_replace($search, $replace, $_POST['description1']) ."', NOW(),0,0)";
 			$this->_db->query($log);
-			header("Location: https://mngofirst.org/clock/");
-			exit;
+			//header("Location: https://mngofirst.org/clock/");
+			//exit;
+            header("Refresh:0");
 		}
 		//End Submitting Tickets
 		

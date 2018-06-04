@@ -15,11 +15,10 @@
 			<unsigned />
 		</field>
         <field name="clockout" type="T">
-			<notnull />
 			<unsigned />
 		</field>
 		<field name="description" type="C" size="255">
-			<notnull />
+
 		</field>
     </table>
     <table name="a_tickets">

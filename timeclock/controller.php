@@ -12,8 +12,8 @@ class Controller extends Package
 {
 
 	protected $pkgHandle = 'timeclock';
-	protected $appVersionRequired = '5.7.1';
-	protected $pkgVersion = '0.7.0';
+	protected $appVersionRequired = '5.7.1.0';
+	protected $pkgVersion = '0.7.1.0';
 	
 	
 	
@@ -31,14 +31,14 @@ class Controller extends Package
 	{
 		$pkg = parent::install();
 		// Add clockmangaer page: allows admins to view clock entries 
-		SinglePage::add('/dashboard/clockmanager/', $pkg);
+		SinglePage::add('/dashboard/clock_manager/', $pkg);
         
         // Add the ticket manager page: allows admins to adjust clock entries 
         // when users 
-        SinglePage::add('/dashboard/ticketmanager/', $pkg);
+        SinglePage::add('/dashboard/ticket_manager/', $pkg);
         
         // Add edit user page so admins can update users' names on the clock page
-        SinglePage::add('/dashboard/editusers/', $pkg);
+        SinglePage::add('/dashboard/edit_users/', $pkg);
         
         // Add blocks that are necessary for the users to use the package
         

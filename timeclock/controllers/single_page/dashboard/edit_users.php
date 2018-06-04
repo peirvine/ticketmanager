@@ -1,5 +1,5 @@
 <?php
-namespace Concrete\Package\Editusers\Controller\SinglePage\Dashboard;
+namespace Concrete\Package\Timeclock\Controller\SinglePage\Dashboard;
 use \Concrete\Core\Page\Controller\DashboardPageController;
 use Concrete\Core\File\File;
 use Loader;

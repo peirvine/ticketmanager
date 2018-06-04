@@ -3,7 +3,7 @@ if ($show == 'list'){
 ?>	
 <div class="ccm-dashboard-header-buttons">
 <?php
-echo '<a href="/dashboard/ticketmanager/download2/0" class="btn btn-info">Download Data (XLS)</a>&nbsp;';
+echo '<a href="/dashboard/ticket_manager/download2/0" class="btn btn-info">Download Data (XLS)</a>&nbsp;';
 ?>
 </div>
 <table class="table table-striped">
@@ -49,8 +49,8 @@ while ($row = $r->fetchRow()) {
 	
 	echo "
 		<td>
-			<a href='/dashboard/ticketmanager/?approve=". $row['ticket_id'] ."&uid=".$row['uID']."&difference=". $row['hoursdifference']."&description=".$row['description']."' class='btn btn-default' type='submit' name='edit' onClick='return confirm(\"Are you sure you wish to approve this ticket? This can not be undone.\");'>Approve</a>
-			<a href='/dashboard/ticketmanager/?reject=". $row['ticket_id'] ."' class='btn btn-danger' onClick='return confirm(\"Are you sure you wish to reject this ticket? This can not be undone.\");'>Reject</a>
+			<a href='/dashboard/ticket_manager/?approve=". $row['ticket_id'] ."&uid=".$row['uID']."&difference=". $row['hoursdifference']."&description=".$row['description']."' class='btn btn-default' type='submit' name='edit' onClick='return confirm(\"Are you sure you wish to approve this ticket? This can not be undone.\");'>Approve</a>
+			<a href='/dashboard/ticket_manager/?reject=". $row['ticket_id'] ."' class='btn btn-danger' onClick='return confirm(\"Are you sure you wish to reject this ticket? This can not be undone.\");'>Reject</a>
 		</td>
 	</tr>";
 		}else{

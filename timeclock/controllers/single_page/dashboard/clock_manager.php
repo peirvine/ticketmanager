@@ -1,5 +1,5 @@
 <?php
-namespace Concrete\Package\Clockmanager\Controller\SinglePage\Dashboard;
+namespace Concrete\Package\Timeclock\Controller\SinglePage\Dashboard;
 use \Concrete\Core\Page\Controller\DashboardPageController;
 use Concrete\Core\File\File;
 use Loader;
@@ -10,7 +10,8 @@ class Clockmanager extends DashboardPageController {
 	
 	public function view() {
 		$this->_db = Loader::db();	
-
+        $this->set('show','list');
+        
 		if (isset($_GET['delete'])){
 			$v = array(intval($_GET['delete']));
 			$q = 'DELETE FROM `competition1` WHERE event_id = ?';
@@ -23,7 +24,7 @@ class Clockmanager extends DashboardPageController {
 		$query = 'SELECT (UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600 as logged, a_clock.clockin as clockin, a_clock.clockout as clockout, a_clock.uID as uID, a_clock.description as description, UserSearchIndexAttributes.ak_full_name as ak_full_name FROM `a_clock` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = a_clock.uID) ORDER BY `hoursID` DESC'; 
 		$r = $this->_db->query($query);	
 		$this->set('r', $r);	
-		$this->set('show','list');
+		
 		
 		$query2 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `hours1`, a_clock.uID as uID, UserSearchIndexAttributes.ak_full_name as fullname FROM `a_clock` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = a_clock.uID) WHERE `clockout` != '0000-00-00 00:00:00' GROUP BY a_clock.`uID` ";
 		$hours = $this->_db->query($query2);	
@@ -121,10 +122,10 @@ class Clockmanager extends DashboardPageController {
 		
 		require_once "PHPExcel.php";
 		$objPHPExcel = new \PHPExcel();
-		$objPHPExcel->getProperties()->setCreator("GOFIRST Reports")
-							 ->setLastModifiedBy("GOFIRST Reports")
-							 ->setTitle("GOFIRST Clock Report")
-							 ->setSubject("GOFIRST Clock Report")
+		$objPHPExcel->getProperties()->setCreator("Webmaster")
+							 ->setLastModifiedBy("Webmaster")
+							 ->setTitle("Time Clock Report")
+							 ->setSubject("Time Clock Report")
 							 ->setDescription("A list of all the clock entries")
 							 ->setKeywords("")
 							 ->setCategory("");
@@ -218,7 +219,7 @@ class Clockmanager extends DashboardPageController {
 
 		// Redirect output to a client’s web browser (Excel5)
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="GOFIRST_Clock_Log.xls"');
+		header('Content-Disposition: attachment;filename="Time_Clock_Log.xls"');
 		header('Cache-Control: max-age=0');
 		// If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');

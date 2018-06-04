@@ -1,5 +1,5 @@
 <?php
-namespace Concrete\Package\Ticketmanager\Controller\SinglePage\Dashboard;
+namespace Concrete\Package\Timeclock\Controller\SinglePage\Dashboard;
 use \Concrete\Core\Page\Controller\DashboardPageController;
 use Concrete\Core\File\File;
 use Loader;
@@ -17,7 +17,7 @@ class ticketmanager extends DashboardPageController {
 			//$q = 'DELETE FROM `a_tickets` WHERE ticket_id = ?';
 			$r = $this->_db->query($q, $v);
 			
-			header("Location: /dashboard/ticketmanager/");
+			header("Location: /dashboard/ticket_manager/");
 			exit;
 		}
 		if (isset($_GET['approve'])){
@@ -32,7 +32,7 @@ class ticketmanager extends DashboardPageController {
 			
 			
 			
-			header("Location: /dashboard/ticketmanager/");
+			header("Location: /dashboard/ticket_manager/");
 			exit;
 		}
 	
@@ -55,10 +55,10 @@ class ticketmanager extends DashboardPageController {
 		
 		require_once "PHPExcel.php";
 		$objPHPExcel = new \PHPExcel();
-		$objPHPExcel->getProperties()->setCreator("GOFIRST Reports")
-							 ->setLastModifiedBy("GOFIRST Reports")
-							 ->setTitle("GOFIRST Ticket Report")
-							 ->setSubject("GOFIRST Ticket Report")
+		$objPHPExcel->getProperties()->setCreator("Webmaster")
+							 ->setLastModifiedBy("Webmaster")
+							 ->setTitle("Ticket Report")
+							 ->setSubject("Ticket Report")
 							 ->setDescription("A list of all the tickets submitted")
 							 ->setKeywords("")
 							 ->setCategory("");
@@ -112,19 +112,19 @@ class ticketmanager extends DashboardPageController {
 					}
 				}
 				$good_data = $string;
-			} elseif (substr($row['value'],0,6) == 'select'){ //Do Nothing
-			} elseif (substr($row['value'],0,6) == 'yes/no'){ //Do Nothing
+			} elseif (substr($row['value'],0,6) == 'select') { // Do Nothing
+			} elseif (substr($row['value'],0,6) == 'yes/no') { // Do Nothing
 			} else {
 				$good_data = "INVALID DATA TYPE. PLEASE CONTACT SUPPORT!";
 			}	
 			
 			$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValue('A'. $i, $row['ticket_id'])
-				->setCellValue('B'. $i, $row['ak_full_name'])//uesr's name
-				->setCellValue('C'. $i, $row['uID'])//uID
+				->setCellValue('B'. $i, $row['ak_full_name']) // uesr's name
+				->setCellValue('C'. $i, $row['uID']) // uID
 				->setCellValue('D'. $i, $row['hoursdifference'])
-				->setCellValue('E'. $i, $row['description'])//mID
-				->setCellValue('F'. $i, $row['datesubmitted'])//mID
+				->setCellValue('E'. $i, $row['description']) // description
+				->setCellValue('F'. $i, $row['datesubmitted']) // submitted
 				->setCellValue('G'. $i, $row['accepted']);
 				if (substr($row['value'], 0,5) == "check" && $is_array){
 					$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$i, 'SEE_EXTRA_COLUMNS:'. $good_data);
@@ -154,7 +154,7 @@ class ticketmanager extends DashboardPageController {
 
 		// Redirect output to a client’s web browser (Excel5)
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="GOFIRST_Ticket_Log.xls"');
+		header('Content-Disposition: attachment;filename="Ticket_Log.xls"');
 		header('Cache-Control: max-age=0');
 		// If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');

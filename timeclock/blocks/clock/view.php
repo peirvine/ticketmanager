@@ -2,13 +2,13 @@
 
 <h2>GOFIRST Shop Clock</h2>
 <?php
-if ($blah == 'clockin'){
+if ($blah == 'clockin') {
 ?>
 <form action="" method="post">
 	<input type="submit" name="clockin" value="Clock In" class="btn btn-default"/>
 </form>
 <?php
-}else{
+} else {
 ?>
 Description of work done: <br/>
 <form action="" method="post" class="jrc_punchclock">
