@@ -17,7 +17,7 @@ class Clockmanager extends DashboardPageController {
 			$q = 'DELETE FROM `competition1` WHERE event_id = ?';
 			$r = $this->_db->query($q, $v);
 			
-			header("Location: /dashboard/clockmanager/");
+			header("Location: /dashboard/clock_manager/");
 			exit;
 		}
 
@@ -26,15 +26,15 @@ class Clockmanager extends DashboardPageController {
 		$this->set('r', $r);	
 		
 		
-		$query2 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `hours1`, a_clock.uID as uID, UserSearchIndexAttributes.ak_full_name as fullname FROM `a_clock` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = a_clock.uID) WHERE `clockout` != '0000-00-00 00:00:00' GROUP BY a_clock.`uID` ";
+		$query2 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `hours1`, a_clock.uID as uID, UserSearchIndexAttributes.ak_full_name as fullname FROM `a_clock` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = a_clock.uID) WHERE `clockout` IS NOT NULL GROUP BY a_clock.`uID` ";
 		$hours = $this->_db->query($query2);	
 		$this->set('hours', $hours);
 		
-		$query3 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `total`FROM `a_clock` WHERE `clockout` != '0000-00-00 00:00:00'";
+		$query3 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `total`FROM `a_clock` WHERE `clockout` IS NOT NULL";
 		$total = $this->_db->query($query3);	
 		$this->set('total', $total);
 		
-		$query4 = "SELECT * FROM `a_clock` WHERE `clockout` = '0000-00-00 00:00:00' GROUP BY uID, hoursID";
+		$query4 = "SELECT * FROM `a_clock` WHERE `clockout` IS NULL GROUP BY uID, hoursID";
 		$status = $this->_db->query($query4);	
 		$this->set('status', $status);
 	}
@@ -240,7 +240,7 @@ class Clockmanager extends DashboardPageController {
 		//create table destination.table select * from source.table;
 		//insert into destination.table select * from source.table
 		
-		$name = date(Y);
+		$name = "backup";
 		
 		$query = "CREATE TABLE ". $name ."_clock select * FROM a_clock";
 		$this->_db->query($query);
@@ -248,17 +248,17 @@ class Clockmanager extends DashboardPageController {
 		$query1 = "INSERT INTO ". $name ."_clock select * FROM a_clock";
 		$this->_db->query($query1);
 		
-		$query2 = "TRUNCATE a_clock";
-		$this->_db->query($query2);
+		// $query2 = "TRUNCATE a_clock";
+		// $this->_db->query($query2);
 		
-		header("Location: /dashboard/clockmanager/");
+		header("Location: /dashboard/clock_manager/");
 		exit;
 	}
 	public function clockout($userID){
 		$this->_db = Loader::db();
-		$query = "UPDATE `a_clock` SET clockout = NOW(), description = 'Forced clock out by admin' WHERE `clockout` = '0000-00-00 00:00:00' AND uID = ". $userID ."";
+		$query = "UPDATE `a_clock` SET clockout = NOW(), description = 'Forced clock out by admin' WHERE `clockout` IS NULL AND uID = ". $userID ."";
 		$this->_db->query($query);
-		header("Location: /dashboard/clockmanager/");
+		header("Location: /dashboard/clock_manager/");
 		exit;
 	}
 }

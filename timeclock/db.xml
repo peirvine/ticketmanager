@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <schema version="0.3">
-    <table name="a_clock">
+    <table name="timeclock_clock">
         <field name="hoursID" type="I">
             <key ></key>
             <unsigned ></unsigned>
@@ -21,7 +21,28 @@
 
 		</field>
     </table>
-    <table name="a_tickets">
+    <table name="timeclock_clockEverything">
+        <field name="hoursID" type="I">
+            <key ></key>
+            <unsigned ></unsigned>
+			<notnull />
+			<autoincrement />
+        </field>
+		<field name="uID" type="I">
+			<notnull />
+		</field>
+		<field name="clockin" type="T">
+			<notnull />
+			<unsigned />
+		</field>
+        <field name="clockout" type="T">
+			<unsigned />
+		</field>
+		<field name="description" type="C" size="255">
+
+		</field>
+    </table>
+    <table name="timeclock_tickets">
         <field name="ticket_id" type="I">
             <key ></key>
             <unsigned ></unsigned>

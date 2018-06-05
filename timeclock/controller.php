@@ -4,6 +4,7 @@ namespace Concrete\Package\Timeclock;
 use Package;
 use SinglePage;
 use BlockType;
+use Loader;
 //use PageTheme;
 
 defined('C5_EXECUTE') or die(_("Access Denied."));
@@ -13,7 +14,7 @@ class Controller extends Package
 
 	protected $pkgHandle = 'timeclock';
 	protected $appVersionRequired = '5.7.1.0';
-	protected $pkgVersion = '0.7.1.0';
+	protected $pkgVersion = '0.7.5.5';
 	
 	
 	
@@ -31,14 +32,17 @@ class Controller extends Package
 	{
 		$pkg = parent::install();
 		// Add clockmangaer page: allows admins to view clock entries 
-		SinglePage::add('/dashboard/clock_manager/', $pkg);
+		SinglePage::add('/dashboard/time_clock/clock_manager/', $pkg);
         
         // Add the ticket manager page: allows admins to adjust clock entries 
         // when users 
-        SinglePage::add('/dashboard/ticket_manager/', $pkg);
+        SinglePage::add('/dashboard/time_clock/ticket_manager/', $pkg);
         
         // Add edit user page so admins can update users' names on the clock page
-        SinglePage::add('/dashboard/edit_users/', $pkg);
+        SinglePage::add('/dashboard/time_clock/edit_users/', $pkg);
+        
+        // Add a historical data page
+        SinglePage::add('/dashboard/time_clock/historical_data/', $pkg);
         
         // Add blocks that are necessary for the users to use the package
         
@@ -47,10 +51,19 @@ class Controller extends Package
         
         // User ticket interface
         BlockType::installBlockTypeFromPackage('tickets', $pkg);  
+        
+        $this->_db = Loader::db();	
+        $query = 'ALTER TABLE `UserSearchIndexAttributes` ADD `ak_full_name` text'; 
+		$this->_db->query($query);	
+
 	}
     
 	function upgrade() {
         parent::upgrade();
    	}
+    
+    public function uninstall() {
+        parent::uninstall();
+    }
 }
 ?>

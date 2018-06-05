@@ -2,7 +2,10 @@
 
 <h2>Ticket Submissions</h2>
 <p>Did you forget to clock in or clock out? Fill out the form below with how many hours you need to adjust your clock with and a short description of the work you did. If you forgot to clock in, please just put what you did and don't write "Forgot to clock in" or something like that.</p>
-
+<?php
+$u = new User();
+if($u->isLoggedIn()) {
+?>
 <form action="" method="post" class="form-horizontal">
 	<!--<textarea name="hoursdifference" class="workDone" rows="4" cols="50"></textarea><br />
 	<textarea name="description1" class="workDone" rows="4" cols="50"></textarea><br />-->
@@ -61,3 +64,9 @@
 	?>
 	</tbody>
 </table>
+<?php
+
+    }else{
+        echo "To submit a ticket, please <a href='/login/'>log in</a>";
+    }
+?>

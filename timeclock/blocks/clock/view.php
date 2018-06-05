@@ -2,6 +2,9 @@
 
 <h2>GOFIRST Shop Clock</h2>
 <?php
+
+$u = new User();
+if($u->isLoggedIn()) {
 if ($blah == 'clockin') {
 ?>
 <form action="" method="post">
@@ -98,23 +101,15 @@ Description of work done: <br/>
 }
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</tbody>
 </table>
 
+<?php
 
+    }else{
+        echo "To clock time, please <a href='/login/'>log in</a>";
+    }
+?>
 
 
 

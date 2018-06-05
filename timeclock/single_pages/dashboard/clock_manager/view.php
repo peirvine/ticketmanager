@@ -32,6 +32,7 @@
 					$in = "in";
 				}else{
 					$in = "out";
+                    echo $hours1['uID'];
 				}
 			}
 			if ($in == "in"){
