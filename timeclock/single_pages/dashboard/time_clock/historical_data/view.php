@@ -4,7 +4,19 @@
 	<a href="/dashboard/time_clock/clock_manager/download2/0" class="btn btn-info">Download Data (XLS)</a>&nbsp;
 </div>
 <h3>Filter by User</h3>
-
+<form action="" method="post" enctype="multipart/form-data">
+<div class="form-group">
+<table>
+    <tr>
+        <td><?php echo $form->label('ak_full_name', 'Full Name: ') ?></td>&nbsp;
+        <td><?php echo $form->text('ak_full_name',$data['ak_full_name']) ?></td>&nbsp;
+        <td><?php echo $form->label('uID', 'User ID: ') ?></td>&nbsp;
+        <td><?php echo $form->text('uID',$data['uID']) ?></td>&nbsp;
+    </tr>
+</table>    
+</div>
+<input type="submit" class="btn btn-primary" value="Search User" name="search" />
+</form>
 
 <!-- <h3>Total hours logged by users: <?php // $total1 = $total->fetchRow(); echo $total1['total'] ?></h3><br /> -->
 
@@ -12,6 +24,7 @@
 <table class="table table-striped">
 <thead>
 <h3>Clock Log</h3>
+<p>This data does not include the current period.</p>
 <tr>
 	<th>User ID</th>
 	<th>User Name</th>

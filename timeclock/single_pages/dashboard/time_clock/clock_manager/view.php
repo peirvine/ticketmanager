@@ -2,12 +2,12 @@
 <div class="ccm-dashboard-header-buttons">
 	<!--<a href="/dashboard/clockmanager/add" class="btn btn-primary">Add a Clock Entry</a>-->
 	<a href="/dashboard/time_clock/clock_manager/download2/0" class="btn btn-info">Download Data (XLS)</a>&nbsp;
-	<a href="/dashboard/time_clock/clock_manager/backup" class="btn btn-danger" onClick="return confirm('Are you sure you wish to DROP the database? Have you downloaded a copy of the databaes? You will not be able to access it again. This can not be undone.');">Backup Database and Start New Year</a>&nbsp;
+	<a href="/dashboard/time_clock/clock_manager/backup" class="btn btn-danger" onClick="return confirm('Are you sure you wish to DROP the database? Have you downloaded a copy of the databaes? You will not be able to access it again. This can not be undone.');">Backup Database and Start a New Period</a>&nbsp;
 </div>
 
 <table class="table table-striped">
 	<thead>
-		<h3>User Summary</h3>
+		<h3>User Summary for this period</h3>
 		<tr>
 			<th>User ID</th>
 			<th>User Name</th>

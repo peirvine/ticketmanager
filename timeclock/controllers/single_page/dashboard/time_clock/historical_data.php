@@ -12,31 +12,17 @@ class Historicaldata extends DashboardPageController {
 		$this->_db = Loader::db();	
         $this->set('show','list');
         
-		if (isset($_GET['delete'])){
-			$v = array(intval($_GET['delete']));
-			$q = 'DELETE FROM `competition1` WHERE event_id = ?';
-			$r = $this->_db->query($q, $v);
-			
-			header("Location: /dashboard/time_clock/clock_manager/");
-			exit;
+		if (isset($_GET['search'])){
+			$query = 'SELECT (UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600 as logged, timeclock_clockEverything.clockin as clockin, timeclock_clockEverything.clockout as clockout, timeclock_clockEverything.uID as uID, timeclock_clockEverything.description as description, UserSearchIndexAttributes.ak_full_name as ak_full_name FROM `timeclock_clockEverything` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = timeclock_clockEverything.uID) WHERE `ak_full_name` LIKE '.$_POST['ak_full_name'].' OR `uID` LIKE '.$_POST['edit'].' ORDER BY `hoursID` DESC'; 
+            $r = $this->_db->query($query);	
+            $this->set('r', $r);	
 		}
 
 		$query = 'SELECT (UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600 as logged, timeclock_clockEverything.clockin as clockin, timeclock_clockEverything.clockout as clockout, timeclock_clockEverything.uID as uID, timeclock_clockEverything.description as description, UserSearchIndexAttributes.ak_full_name as ak_full_name FROM `timeclock_clockEverything` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = timeclock_clockEverything.uID) ORDER BY `hoursID` DESC'; 
 		$r = $this->_db->query($query);	
 		$this->set('r', $r);	
 		
-		
-		$query2 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `hours1`, timeclock_clockEverything.uID as uID, UserSearchIndexAttributes.ak_full_name as fullname FROM `timeclock_clockEverything` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = timeclock_clockEverything.uID) WHERE `clockout` IS NOT NULL GROUP BY timeclock_clockEverything.`uID` ";
-		$hours = $this->_db->query($query2);	
-		$this->set('hours', $hours);
-		
-		$query3 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `total`FROM `timeclock_clockEverything` WHERE `clockout` IS NOT NULL";
-		$total = $this->_db->query($query3);	
-		$this->set('total', $total);
-		
-		$query4 = "SELECT * FROM `timeclock_clockEverything` WHERE `clockout` IS NULL GROUP BY uID, hoursID";
-		$status = $this->_db->query($query4);	
-		$this->set('status', $status);
+	
 	}
 	
 	public function edit($id){

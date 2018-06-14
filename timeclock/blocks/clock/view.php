@@ -1,19 +1,21 @@
 <?php  defined('C5_EXECUTE') or die(_("Access Denied.")); ?>
 
-<h2>GOFIRST Shop Clock</h2>
+<h2>Time Clock</h2>
 <?php
 
 $u = new User();
 if($u->isLoggedIn()) {
 if ($blah == 'clockin') {
 ?>
+<p>You are clocked out</p>
 <form action="" method="post">
 	<input type="submit" name="clockin" value="Clock In" class="btn btn-default"/>
 </form>
 <?php
 } else {
 ?>
-Description of work done: <br/>
+You are clocked in <br />
+Description of work done: <br/ >
 <form action="" method="post" class="jrc_punchclock">
 	<textarea name="description" id="textarea" class="form-control"></textarea><br />
 	<input type="submit" name="clockout" value="Clock Out" class="btn btn-default"/>
@@ -23,6 +25,7 @@ Description of work done: <br/>
 ?>
 <br />
 <br />
+<!--
 <h3>Officer Hours spent on GOFIRST</h3>
 <table class="table table-striped">
 	<thead>
@@ -30,7 +33,7 @@ Description of work done: <br/>
 			<th>User ID</th>
 			<th>Name</th>
 			<th>Hours</th>
-			<!--<th>Status</th>-->
+			<!--<th>Status</th>--><!--
 		</tr>
 	</thead>
 	<tbody id='categorylist'>
@@ -62,12 +65,8 @@ Description of work done: <br/>
 		}
 		?>
 	</tbody>
-</table>
-
-<h4>Total hours spent on GOFIRST by Officers: <?php $total1 = $total->fetchRow(); echo $total1['total'] ?></h4><br />
-<br />
-<br />
-<h3>Recent Work Log</h3>
+</table>-->
+<!--<h3>Recent Work Log</h3>
 <p>15 most recent clock entries (newest at the top)</p>
 <table class="table table-striped">
 	<thead>
@@ -80,7 +79,7 @@ Description of work done: <br/>
 	</thead>
 	<tbody id='categorylist'>
 <?php
-		while ($row = $r->fetchRow()) {
+/*		while ($row = $r->fetchRow()) {
 		$time = strtotime($row['clockin']);
 		$time2 = strtotime($row['clockout']);
 		echo "<tr id='category". $row['hoursID'] ."'>
@@ -99,11 +98,11 @@ Description of work done: <br/>
 		</tr>";
 
 }
-
+*/
 ?>
 	</tbody>
 </table>
-
+-->
 <?php
 
     }else{
