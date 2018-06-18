@@ -1,27 +1,40 @@
 
 <div class="ccm-dashboard-header-buttons">
 	<!--<a href="/dashboard/clockmanager/add" class="btn btn-primary">Add a Clock Entry</a>-->
-	<a href="/dashboard/time_clock/clock_manager/download2/0" class="btn btn-info">Download Data (XLS)</a>&nbsp;
+    
+    <script>
+        function myFunction() {
+          // Declare variables 
+          var input, filter, table, tr, td, i;
+          input = document.getElementById("myInput");
+          filter = input.value;
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            td2 = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+              if (td.innerHTML.indexOf(filter) > -1 || td2.innerHTML.indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            } 
+          }
+        }
+    </script>
+    
+    
+    <form method="GET">
+		<input type="text" id="myInput" class="form-control" style="width: 150px; display: inline-block" onKeyDown="myFunction();" placeholder="Username" autofocus>
+	<a href="/dashboard/time_clock/clock_manager/download2/0" class="btn btn-info">Download Data (XLS)</a>&nbsp;</form>
 </div>
 <h3>Filter by User</h3>
-<form action="" method="post" enctype="multipart/form-data">
-<div class="form-group">
-<table>
-    <tr>
-        <td><?php echo $form->label('ak_full_name', 'Full Name: ') ?></td>&nbsp;
-        <td><?php echo $form->text('ak_full_name',$data['ak_full_name']) ?></td>&nbsp;
-        <td><?php echo $form->label('uID', 'User ID: ') ?></td>&nbsp;
-        <td><?php echo $form->text('uID',$data['uID']) ?></td>&nbsp;
-    </tr>
-</table>    
-</div>
-<input type="submit" class="btn btn-primary" value="Search User" name="search" />
-</form>
 
 <!-- <h3>Total hours logged by users: <?php // $total1 = $total->fetchRow(); echo $total1['total'] ?></h3><br /> -->
-
-
-<table class="table table-striped">
+<table id="myTable" class="table table-striped">
 <thead>
 <h3>Clock Log</h3>
 <p>This data does not include the current period.</p>
