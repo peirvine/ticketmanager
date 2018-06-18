@@ -183,13 +183,13 @@ class Clockmanager extends DashboardPageController {
 			} else {
 				$good_data = "INVALID DATA TYPE. PLEASE CONTACT SUPPORT!";
 			}	
-			
+			$time = (strtotime($row['clockout']) - strtotime($row['clockin'])) / 3600;
 			$objPHPExcel->setActiveSheetIndex(0)
-				->setCellValue('A'. $i, $row['uID'])//uesr's name
+				->setCellValue('A'. $i, $row['uID']) // uesr's name
 				->setCellValue('B'. $i, $row['ak_full_name'])
 				->setCellValue('C'. $i, $row['clockin'])//uID
 				->setCellValue('D'. $i, $row['clockout'])
-				->setCellValue('E'. $i, (($row['clockout'] - $row['clockin'])/3600))//mID
+				->setCellValue('E'. $i, $time) // mID
 				->setCellValue('F'. $i, $row['description']);
 				if (substr($row['value'], 0,5) == "check" && $is_array){
 					$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$i, 'SEE_EXTRA_COLUMNS:'. $good_data);
