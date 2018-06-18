@@ -7,12 +7,24 @@ $u = new User();
 if($u->isLoggedIn()) {
 ?>
 <form action="" method="post" class="form-horizontal">
-	<!--<textarea name="hoursdifference" class="workDone" rows="4" cols="50"></textarea><br />
-	<textarea name="description1" class="workDone" rows="4" cols="50"></textarea><br />-->
-	<div class="form-group">
+
+	<!-- Add or Subtract -->
+    <div class="form-group">
+		<label class="col-md-4 control-label" for="hoursdifference">Add or Subtract Hours</label>  
+		<div class="col-md-8">
+            <!--<input name="plus" type="radio" id="plus" value="plus" checked>&nbsp;Add<br />
+            <input name="minus" type="radio" id="minus" value="minus">&nbsp;Subtract-->
+            <input type="radio" name="plusminus" value="0" checked>&nbsp;Add<br>
+            <input type="radio" name="plusminus" value="1">&nbsp;Subtract
+		</div>
+	</div>
+    
+    <!-- Hours difference -->
+    <div class="form-group">
 		<label class="col-md-4 control-label" for="hoursdifference">Hours Difference</label>  
 		<div class="col-md-8">
-			<input id="hoursdifference" name="hoursdifference" type="text" class="form-control input-md">
+			<input id="hoursdifference" name="hoursdifference" type="number" 
+                   min="0" step="0.01" class="form-control input-md">
 		</div>
 	</div>
 
@@ -20,7 +32,7 @@ if($u->isLoggedIn()) {
 	<div class="form-group">
 	  <label class="col-md-4 control-label" for="description1">Description of Work Done</label>
 	  <div class="col-md-8">                     
-		<textarea class="form-control" id="textarea" name="description1"></textarea>
+		<textarea class="form-control" id="textarea" name="description1"></textarea> <br />
         <input type="submit" name="tickets" value="Submit Ticket" class="btn btn-default"/>
 	 </div>
 	</div>

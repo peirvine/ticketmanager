@@ -43,6 +43,7 @@ class Controller extends BlockController
     public function view(){
 		$this->_db = Loader::db();	
 		$u = new User();
+        // $id = $u-getUserID();
         if($u->isLoggedIn()) {
             //Queries and Code for clocking time
             if (isset($_POST['clockin'])) {
@@ -78,23 +79,23 @@ class Controller extends BlockController
             
             $this->set('status','clockin');
             //The following queries and code are for the table of users and for the total time at the bottom of said table
-            $query = 'SELECT (UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600 as logged, timeclock_clock.clockin as clockin, timeclock_clock.clockout as clockout, timeclock_clock.uID as uID, timeclock_clock.description as description, UserSearchIndexAttributes.ak_full_name as ak_full_name FROM `timeclock_clock` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = timeclock_clock.uID) ORDER BY `hoursID` DESC LIMIT 15'; 
+            $query = "SELECT (UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600 as logged, timeclock_clock.clockin as clockin, timeclock_clock.clockout as clockout, timeclock_clock.uID as uID, timeclock_clock.description as description, UserSearchIndexAttributes.ak_full_name as ak_full_name FROM `timeclock_clock` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = timeclock_clock.uID) WHERE timeclock_clock.uID = ". $u->getUserID() ." ORDER BY `hoursID` DESC LIMIT 15"; 
             $r = $this->_db->query($query);	
             $this->set('r', $r);	
             $this->set('show','list');
             
-            $query2 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `hours1`, timeclock_clock.uID as uID, UserSearchIndexAttributes.ak_full_name as fullname FROM `timeclock_clock` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = timeclock_clock.uID) WHERE `clockout` IS NOT NULL GROUP BY timeclock_clock.`uID` ";
+           /* $query2 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `hours1`, timeclock_clock.uID as uID, UserSearchIndexAttributes.ak_full_name as fullname FROM `timeclock_clock` LEFT JOIN (UserSearchIndexAttributes) ON (UserSearchIndexAttributes.uID = timeclock_clock.uID) WHERE `clockout` IS NOT NULL GROUP BY timeclock_clock.`uID` ";
             $hours = $this->_db->query($query2);	
-            $this->set('hours', $hours);
+            $this->set('hours', $hours);*/
             
-            $query3 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `total`FROM `timeclock_clock` WHERE `clockout` IS NOT NULL";
+           /* $query3 = "SELECT SUM((UNIX_TIMESTAMP(`clockout`) - UNIX_TIMESTAMP(`clockin`))/3600) as `total`FROM `timeclock_clock` WHERE `clockout` IS NOT NULL";
             $total = $this->_db->query($query3);	
             $this->set('total', $total);
             
             $query4 = "SELECT * FROM `timeclock_clock` WHERE `clockout` = NULL GROUP BY uID, hoursID";
             $status = $this->_db->query($query4);	
             $this->set('status', $status);
-            //end queires code for this section
+            //end queires code for this section*/
 		}
     }
 

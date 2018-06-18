@@ -25,66 +25,26 @@ Description of work done: <br/ >
 ?>
 <br />
 <br />
-<!--
-<h3>Officer Hours spent on GOFIRST</h3>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>User ID</th>
-			<th>Name</th>
-			<th>Hours</th>
-			<!--<th>Status</th>--><!--
-		</tr>
-	</thead>
-	<tbody id='categorylist'>
-		<?php
-		/*for($i=0; $status1 = $status->fetchRow(); $i++){
-			$a[$i] = $status1['uID'];
-		}*/
-		while ($hours1 = $hours->fetchRow()) {
-			echo "<tr id='category". $hours1['hoursID'] ."'>
-				<td>". $hours1['uID'] ."</td>
-				<td>". $hours1['fullname'] ."</td>
-				<td>". $hours1['hours1'] ."</td>";
-			/*$check = intval($hours1['uID']);
-			for($k = 0; $k < count($a); $k++){
-				$b = intval($a[$k]);
-				if ($b == $check){
-					$in = "in";
-				}else{
-					$in = "out";
-				}
-			}
-			if ($in == "in"){
-				echo "<td>Clocked In</td>";
-			}else{
-				echo "<td>Clocked Out</td>";
-			}*/
-			echo"
-			</tr>";
-		}
-		?>
-	</tbody>
-</table>-->
-<!--<h3>Recent Work Log</h3>
+
+<h3>Recent Work Log</h3>
 <p>15 most recent clock entries (newest at the top)</p>
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>User ID</th>
 			<th>Name</th>
+			<th>Date</th>
 			<th>Hours Worked</th>
 			<th>Description</th>
 		</tr>
 	</thead>
 	<tbody id='categorylist'>
 <?php
-/*		while ($row = $r->fetchRow()) {
+		while ($row = $r->fetchRow()) {
 		$time = strtotime($row['clockin']);
 		$time2 = strtotime($row['clockout']);
 		echo "<tr id='category". $row['hoursID'] ."'>
-			<td>". $row['uID'] ."</td>
 			<td>". $row['ak_full_name'] ."</td>";
+            echo "<td>". date('m/d/y',$time) ."</td>";
 			if ($row['logged'] <= -1000){
 				echo "<td>Clocked In</td>";
 			}else{
@@ -98,11 +58,10 @@ Description of work done: <br/ >
 		</tr>";
 
 }
-*/
+
 ?>
 	</tbody>
 </table>
--->
 <?php
 
     }else{
