@@ -69,7 +69,7 @@ class ticketmanager extends DashboardPageController {
 				->setCellValue('B'. $i, 'User')
 				->setCellValue('C'. $i, 'User ID')
 				->setCellValue('D'. $i, 'Hour Difference Requested')
-				->setCellValue('E'. $i, 'Description of Hours worked')
+				->setCellValue('E'. $i, 'Description of Hours Worked')
 				->setCellValue('F'. $i, 'Date Submitted')
 				->setCellValue('G'. $i, 'Accepted')			
 				;
@@ -117,7 +117,13 @@ class ticketmanager extends DashboardPageController {
 			} else {
 				$good_data = "INVALID DATA TYPE. PLEASE CONTACT SUPPORT!";
 			}	
-			
+			if ($row['accepted'] == 0) {
+                $accepted = "Unhandled";
+            } elseif ($row['accepted'] == 1) {
+                $accepted = "No";
+            } else {
+                $accepted = "Yes";
+            }
 			$objPHPExcel->setActiveSheetIndex(0)
 				->setCellValue('A'. $i, $row['ticket_id'])
 				->setCellValue('B'. $i, $row['ak_full_name']) // uesr's name
@@ -125,7 +131,7 @@ class ticketmanager extends DashboardPageController {
 				->setCellValue('D'. $i, $row['hoursdifference'])
 				->setCellValue('E'. $i, $row['description']) // description
 				->setCellValue('F'. $i, $row['datesubmitted']) // submitted
-				->setCellValue('G'. $i, $row['accepted']);
+				->setCellValue('G'. $i, $accepted);
 				if (substr($row['value'], 0,5) == "check" && $is_array){
 					$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$i, 'SEE_EXTRA_COLUMNS:'. $good_data);
 					$options = explode(";", $row['Units']);
