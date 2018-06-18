@@ -14,7 +14,7 @@ class Controller extends Package
 
 	protected $pkgHandle = 'timeclock';
 	protected $appVersionRequired = '5.7.1.0';
-	protected $pkgVersion = '0.7.5.5';
+	protected $pkgVersion = '0.8.0.0';
 	
 	
 	

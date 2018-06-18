@@ -13,8 +13,8 @@
 
           // Loop through all table rows, and hide those who don't match the search query
           for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            td2 = tr[i].getElementsByTagName("td")[2];
+            td = tr[i].getElementsByTagName("td")[0];
+            td2 = tr[i].getElementsByTagName("td")[1];
             if (td) {
               if (td.innerHTML.indexOf(filter) > -1 || td2.innerHTML.indexOf(filter) > -1) {
                 tr[i].style.display = "";

@@ -23,7 +23,7 @@ class ticketmanager extends DashboardPageController {
 		if (isset($_GET['approve'])){
 			$v = array(intval($_GET['approve']));
 			$asd = $_GET['difference'] * 60;
-			$a = 'INSERT INTO a_clock (uID,clockin,clockout,description) VALUES('.$_GET['uid'].',NOW(), DATE_ADD(now(), INTERVAL '.$asd.' MINUTE) ,"Ticket: '. $_GET['description'].'")';
+			$a = 'INSERT INTO timeclock_clock (uID,clockin,clockout,description) VALUES('.$_GET['uid'].',NOW(), DATE_ADD(now(), INTERVAL '.$asd.' MINUTE) ,"Ticket: '. $_GET['description'].'")';
 			$b = $this->_db->query($a, $v);
 			
 			
