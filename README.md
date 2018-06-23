@@ -28,7 +28,7 @@ Currently, to install this app on your install of concrete5 you have to either d
 ![clock manager](/readmeimages/clockmanager.png)
 
 ### Ticket Manager
-![ticket manager](/readmeimages/editusers.png)
+![ticket manager](/readmeimages/ticketmanager.png)
 ### Edit Users
 ![edit users](/readmeimages/editusers.png)
 ### Historical Data
